@@ -1,5 +1,4 @@
 package logica;
-
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Date;
@@ -9,6 +8,7 @@ import actividades.Activity;
 import actividades.Encuesta;
 import actividades.Quiz;
 import actividades.Tarea;
+import preguntas.Pregunta;
 
 public class ManejadorDePersistencia {
     private static final String ACTIVITIES_FILE = "./data/activities.txt";
@@ -35,7 +35,7 @@ public class ManejadorDePersistencia {
         if (actividad instanceof Encuesta) {
             Encuesta encuesta = (Encuesta) actividad;
             escritor.print(";" + encuesta.getPreguntas().size());
-            for (String pregunta : encuesta.getPreguntas()) {
+            for (Pregunta pregunta : encuesta.getPreguntas()) {
                 escritor.print(";" + pregunta);
             }
         } else if (actividad instanceof Quiz) {
@@ -44,7 +44,7 @@ public class ManejadorDePersistencia {
             // Aquí puedes agregar la lógica para las preguntas del Quiz
         } else if (actividad instanceof Tarea) {
             Tarea tarea = (Tarea) actividad;
-            escritor.print(";" + tarea.getEntrega() + ";" + tarea.getEstado());
+            escritor.print(";" + tarea.getEntrega() + ";" + tarea.getestado());
         }
         escritor.println(); // Nueva línea para la siguiente actividad
     }
@@ -83,7 +83,7 @@ public class ManejadorDePersistencia {
                 encuesta.setId(id); // Establecer el ID
                 return encuesta;
             case "Quiz":
-                float calificacionMinima = Float.parseFloat(datos[5]);
+                double calificacionMinima = Double.parseDouble(datos[5]); // Cambia de float a double
                 // Aquí debes manejar la lectura de preguntas del Quiz
                 Quiz quiz = new Quiz(titulo, descripcion, fecha, calificacionMinima, new ArrayList<>()); // Placeholder para preguntas
                 quiz.setId(id); // Establecer el ID

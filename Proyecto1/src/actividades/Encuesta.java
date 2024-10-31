@@ -81,4 +81,8 @@ public class Encuesta extends Activity {
         enviar();
         return true; // Indica que la encuesta se completó satisfactoriamente
     }
+	public void setId(Long id) {
+		this.id = id;
+		
+	}
 }

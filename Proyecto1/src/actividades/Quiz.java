@@ -8,6 +8,7 @@ import java.util.Map;
 import preguntas.Pregunta;
 
 public class Quiz extends Activity {
+	private Long id;
     
     private static final String TIPO = "Quiz";
     private double calificacionMinima;
@@ -89,6 +90,9 @@ public class Quiz extends Activity {
     // Actualiza el resultado del quiz basado en la calificación mínima
     private void actualizarResultado() {
         setResultado(calificacionFinal >= calificacionMinima ? "Exitoso" : "No exitoso");
+    }
+    public void setId(Long id) {
+    	this.id = id;
     }
 
 
