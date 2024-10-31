@@ -14,7 +14,12 @@ public abstract class Activity {
         this.fecha = fecha;
     }
 
-    public abstract boolean completar();
+	public Activity(String titulo2, String tipo, Boolean obligatoriedad, String descripcion2, String objetivo,
+			String nivelDificultad, int duracion, String creador) {
+		// TODO Auto-generated constructor stub
+	}
+
+	public abstract boolean completar();
     
     public Long getId() {
         return id;
