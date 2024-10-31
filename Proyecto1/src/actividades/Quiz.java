@@ -2,6 +2,7 @@ package actividades;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import preguntas.Pregunta;
@@ -14,13 +15,17 @@ public class Quiz extends Activity {
     private List<Pregunta> preguntas;
 
     public Quiz(String titulo, Boolean obligatoriedad, String descripcion, String objetivo,
-                String nivelDificultad, int duracion, String creador, double calificacionMinima) throws Exception {
-        super(titulo, TIPO, obligatoriedad, descripcion, objetivo, nivelDificultad, duracion, creador);
+            String nivelDificultad, int duracion, String creador, double calificacionMinima) throws Exception {
+    super(titulo, TIPO, obligatoriedad, descripcion, objetivo, nivelDificultad, duracion, creador); // Llamada a super para inicializar 'creador'
+    this.calificacionMinima = calificacionMinima;
+    this.calificacionFinal = 0;
+    this.preguntas = new ArrayList<>();
+}
+    public Quiz(String titulo, String descripcion, Date fecha, double calificacionMinima, List<Pregunta> preguntas) {
+        super(titulo, descripcion, fecha);
         this.calificacionMinima = calificacionMinima;
-        this.calificacionFinal = 0;
-        this.preguntas = new ArrayList<>();
+        this.preguntas = preguntas;
     }
-
     public double getCalificacionMinima() {
         return calificacionMinima;
     }
@@ -47,19 +52,26 @@ public class Quiz extends Activity {
     private void evaluarRespuestas() {
         int totalPreguntas = preguntas.size();
         if (totalPreguntas == 0) {
-            calificacionFinal = 0;
+            calificacionFinal = 0; // Sin preguntas, calificación final es 0
             return;
         }
 
-        long respuestasCorrectas = preguntas.stream().filter(preguntas::verificarRespuesta).count();
-        calificacionFinal = ((double) respuestasCorrectas / totalPreguntas) * 5;
+        long respuestasCorrectas = 0; // Contador de respuestas correctas
+        for (Pregunta pregunta : preguntas) {
+            if (pregunta.verificarRespuesta(totalPreguntas)) { // Verifica cada respuesta
+                respuestasCorrectas++;
+            }
+        }
+        
+        calificacionFinal = ((double) respuestasCorrectas / totalPreguntas) * 5; // Calcula la calificación
     }
+
 
     // Muestra explicaciones detalladas para cada pregunta y su respuesta
     public String mostrarExplicaciones() {
         StringBuilder explicacionesCompletas = new StringBuilder();
         preguntas.forEach(pregunta -> {
-            explicacionesCompletas.append(pregunta.getDescripcion())
+            explicacionesCompletas.append(pregunta.getEnunciado())
                                   .append("\n")
                                   .append(pregunta.explicaciones())
                                   .append("\n");
@@ -70,8 +82,6 @@ public class Quiz extends Activity {
     // Envía el quiz, calcula el tiempo dedicado y actualiza el resultado
     public void enviar() {
         LocalDateTime horaActual = LocalDateTime.now();
-        setHoraFin(horaActual);
-        calcularTiempoDedicado(horaInicio, horaFin);
         evaluarRespuestas();
         actualizarResultado();
     }
@@ -81,22 +91,6 @@ public class Quiz extends Activity {
         setResultado(calificacionFinal >= calificacionMinima ? "Exitoso" : "No exitoso");
     }
 
-    // Crea una copia de esta instancia de Quiz para otro usuario
-    public Quiz copiarActividad(String usuario) throws Exception {
-        String nuevoTitulo = "Copia de " + getTitulo() + " de " + creador;
-        String nuevoCreador = creador.equalsIgnoreCase(usuario) ? creador : usuario;
-
-        Quiz copia = new Quiz(nuevoTitulo, getObligatoriedad(), getDescripcion(), getObjetivo(),
-                              getNivelDificultad(), getDuracion(), nuevoCreador, calificacionMinima);
-
-        copia.setFeedbacks(new ArrayList<>(getFeedbacks()));
-        copia.setPrerrequisitos(new HashMap<>(getPrerrequisitos()));
-        copia.setRecomendacionesAprobado(new HashMap<>(getRecomendacionesAprobado()));
-        copia.setRecomendacionesNoAprobado(new HashMap<>(getRecomendacionesNoAprobado()));
-        copia.setPreguntas(new ArrayList<>(preguntas));
-
-        return copia;
-    }
 
 	@Override
 	public boolean completar() {

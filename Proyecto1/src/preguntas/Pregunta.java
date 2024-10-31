@@ -6,7 +6,7 @@ public class Pregunta {
     private String enunciado;
     private List<String> opciones; // Lista de opciones de respuesta
     private int indiceRespuestaCorrecta; // Índice de la respuesta correcta en la lista de opciones
-
+    private String explicacion;
     // Constructor
     public Pregunta(String enunciado, List<String> opciones, int indiceRespuestaCorrecta) {
         this.enunciado = enunciado;
@@ -26,6 +26,9 @@ public class Pregunta {
     
     public List<String> getOpciones() {
         return opciones;
+    }
+    public String explicaciones() {
+    	return explicacion;
     }
 
     public void setOpciones(List<String> opciones) {

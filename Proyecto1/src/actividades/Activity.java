@@ -7,6 +7,8 @@ public abstract class Activity {
     private String titulo;
     private String descripcion;
     private Date fecha;
+    private String resultado;
+    private String creador;
 
     public Activity(String titulo, String descripcion, Date fecha) {
         this.titulo = titulo;
@@ -44,5 +46,19 @@ public abstract class Activity {
 
     public void setFecha(Date fecha) {
         this.fecha = fecha;
+    }
+    public String getResultado() {
+        return resultado;
+    }
+
+    public void setResultado(String resultado) {
+        this.resultado = resultado;
+    }
+    public String getCreador() {
+        return creador;
+    }
+
+    public void setCreador(String creador) {
+        this.creador = creador;
     }
 }
