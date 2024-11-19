@@ -8,6 +8,7 @@ import logica.LearningPath;
 import java.util.List;
 import logica.LearningPath;
 
+
 public class Usuario {
     private Long id;
     private String correo;

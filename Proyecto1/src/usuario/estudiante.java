@@ -1,12 +1,18 @@
 package usuario;
+import java.util.List;
+
+import actividades.Activity;
+import java.util.ArrayList;
 
 public class estudiante extends Usuario {
     private float progreso;
+    private List<Activity> actividadesAsignadas;
 
     // Constructor
     public estudiante(int userID, String nombre, String correo, String contrasena) {
         super(nombre, correo, contrasena);
         this.progreso = 0.0f; // El progreso inicial es 0%
+        this.actividadesAsignadas = new ArrayList<>();
     }
 
     // Método para consultar el progreso del estudiante
@@ -38,6 +44,16 @@ public class estudiante extends Usuario {
         } else {
             System.out.println("Error: El progreso debe estar entre 0 y 100.");
         }
+    }
+    public void recibirActividad(Activity actividad) {
+        actividadesAsignadas.add(actividad);
+    }
+    public List<Activity> getActividadesAsignadas() {
+        return actividadesAsignadas;
+    }
+    public void completarActividad(Activity actividad) {
+        // Implementa la lógica para completar la actividad y actualizar su estado
+        actividad.completar();
     }
 }
 

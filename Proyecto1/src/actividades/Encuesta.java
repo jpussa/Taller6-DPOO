@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Encuesta extends Activity {
-
+	private Long id;
     private static final String TIPO = "Encuesta";
     private List<Pregunta> preguntas; // Lista de preguntas de la encuesta
     private Map<Pregunta, List<String>> respuestas; // Almacena las respuestas de los usuarios
@@ -20,7 +20,7 @@ public class Encuesta extends Activity {
         this.preguntas = new ArrayList<>();
         this.respuestas = new HashMap<>();
     }
-    public Encuesta(String titulo, String descripcion, Date fecha, List<String> preguntas2) {
+    public Encuesta(String titulo, String descripcion, Date fecha, List<Pregunta> preguntas2) {
         super(titulo, descripcion, fecha);
         this.preguntas = preguntas2;
     }
