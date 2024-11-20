@@ -4,16 +4,19 @@ import java.util.List;
 
 import actividades.Activity;
 import logica.LearningPath;
+import logica.Asignacion;
 
 public class Profesor extends Usuario {
     private List<LearningPath> cursosCreados;
     private List<Activity> actividadesCreadas;
+    private List<Activity> actividadesAsignadas;
 
     // Constructor
     public Profesor(int userID, String nombre, String correo, String contrasena) {
         super(nombre, correo, contrasena);
         this.cursosCreados = new ArrayList<>();
         this.actividadesCreadas = new ArrayList<>();
+        this.actividadesAsignadas = new ArrayList<>();
     }
 
     // Método para crear un nuevo Learning Path y añadirlo a la lista de cursos creados
@@ -53,8 +56,13 @@ public class Profesor extends Usuario {
     }
     public void asignarActividad(estudiante estudiante, Activity actividad) {
         estudiante.recibirActividad(actividad);
+        actividadesAsignadas.add(actividad);
+        Asignacion.agregarestudiante(estudiante);
+        
     }
     public List<Activity> getActividadesCreadas() {
         return actividadesCreadas;
     }
+    public void darFeedback(ActividadAsignada asignacion)
+    
 }
