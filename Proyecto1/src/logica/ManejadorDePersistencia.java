@@ -93,8 +93,9 @@ public class ManejadorDePersistencia {
                 encuesta.setId(id);
                 return encuesta;
             case "Quiz":
+            	List<Pregunta> preguntasQ = new ArrayList<>();
                 int calificacionMinima = Integer.parseInt(datos[5]);
-                Quiz quiz = new Quiz(titulo, descripcion, fecha, calificacionMinima, preguntas);
+                Quiz quiz = new Quiz(titulo, descripcion, fecha, calificacionMinima, preguntasQ);
                 quiz.setId(id);
                 return quiz;
             case "Tarea":
@@ -119,8 +120,8 @@ public class ManejadorDePersistencia {
     }
 
     private void guardarLearningPath(LearningPath learningPath, PrintWriter escritor) {
-        escritor.print(learningPath.getId() + ";" + learningPath.getNombre() + ";" + learningPath.getDescripcion());
-        for (Activity actividad : learningPath.getActividades()) {
+        escritor.print(learningPath.getId() + ";" + learningPath.getNombre() + ";" + learningPath.getdescripcion());
+        for (Activity actividad : learningPath.getactividad()) {
             escritor.print(";" + actividad.getId());
         }
         escritor.println(); // Nueva línea para el siguiente LearningPath
@@ -133,7 +134,7 @@ public class ManejadorDePersistencia {
             while ((linea = lector.readLine()) != null) {
                 LearningPath learningPath = leerLearningPath(linea);
                 if (learningPath != null) {
-                    learningPaths.put(learningPath.getId(), learningPath);
+                    learningPaths.put(learningPath.getIdPath(), learningPath);
                 }
             }
         }
@@ -145,13 +146,13 @@ public class ManejadorDePersistencia {
         String nombre = datos[1];
         String descripcion = datos[2];
         LearningPath learningPath = new LearningPath(nombre, descripcion);
-        learningPath.setId(id);
+        learningPath.setidPath(id);
 
         for (int i = 3; i < datos.length; i++) {
             Long actividadId = Long.parseLong(datos[i]);
             Activity actividad = actividades.get(actividadId); // Recuperar actividad previamente cargada
             if (actividad != null) {
-                learningPath.agregarActividad(actividad);
+                learningPath.addActivity(actividad);
             }
         }
         return learningPath;
@@ -179,7 +180,5 @@ public class ManejadorDePersistencia {
         learningPaths.put(learningPath.getId(), learningPath);
     }
 
-    public void eliminarLearningPath(Long id) {
-        learningPaths.remove(id);
-    }
+
 }

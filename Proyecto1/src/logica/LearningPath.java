@@ -41,7 +41,23 @@ public class LearningPath {
     public long getIdPath() {
         return id;
     }
-    
+    public void setidPath(Long id) {
+    	this.id = id;
+    }
+    public List<Activity> getactividad() {
+    	return activities;
+    	
+    }
+    public String getdescripcion() {
+    	return descripcion;
+    	
+    }
+    public Long getId() {
+    	return id;
+    }
+    public String getNombre() {
+    	return titulo;
+    }
 
 
     public String getTitulo() {
