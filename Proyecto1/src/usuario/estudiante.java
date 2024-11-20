@@ -9,7 +9,7 @@ public class estudiante extends Usuario {
     private List<Activity> actividadesAsignadas;
 
     // Constructor
-    public estudiante(int userID, String nombre, String correo, String contrasena) {
+    public estudiante(String nombre, String correo, String contrasena) {
         super(nombre, correo, contrasena);
         this.progreso = 0.0f; // El progreso inicial es 0%
         this.actividadesAsignadas = new ArrayList<>();
@@ -51,9 +51,18 @@ public class estudiante extends Usuario {
     public List<Activity> getActividadesAsignadas() {
         return actividadesAsignadas;
     }
+    public void asignarActividad(Activity actividad) {
+        actividadesAsignadas.add(actividad);
+        System.out.println("Actividad asignada a " + getNombre() + ": " + actividad.getTitulo());
+    }
+
     public void completarActividad(Activity actividad) {
-        // Implementa la lógica para completar la actividad y actualizar su estado
-        actividad.completar();
+        if (actividadesAsignadas.contains(actividad)) {
+            actividad.completar();
+            System.out.println("Actividad " + actividad.getTitulo() + " completada por " + getNombre());
+        } else {
+            System.out.println("La actividad no está asignada al estudiante.");
+        }
     }
 }
 

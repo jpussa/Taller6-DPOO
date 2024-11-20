@@ -1,14 +1,14 @@
-package Interfaz;
+package interfaz;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import usuario.estudiante;
-import actividades.Activity;
+import usuario.estudiante;  // Change to "Estudiante" (with capital "E")
+import actividades.Activity;  // Assuming Activity is an abstract or concrete class
 
 public class HacerActividad {
 
-    private estudiante estudiante;
+    private estudiante estudiante;  // Changed to "Estudiante" to match Java naming conventions
 
     public HacerActividad(estudiante estudiante) {
         this.estudiante = estudiante;
@@ -29,12 +29,12 @@ public class HacerActividad {
         // Lista de actividades asignadas
         JList<String> actividadesList = new JList<>();
         DefaultListModel<String> actividadesModel = new DefaultListModel<>();
-        
+
         // Llenar la lista con las actividades asignadas al estudiante
         for (Activity actividad : estudiante.getActividadesAsignadas()) {
             actividadesModel.addElement(actividad.getTitulo());
         }
-        
+
         actividadesList.setModel(actividadesModel);
         JScrollPane scrollPane = new JScrollPane(actividadesList);
         scrollPane.setBounds(50, 60, 400, 200);
@@ -76,9 +76,10 @@ public class HacerActividad {
 
     public static void main(String[] args) {
         // Suponiendo que ya tienes un objeto Estudiante creado con actividades asignadas
-    	estudiante estudiante = new estudiante(1, "Carlos García", "carlos@ejemplo.com", "abcd");
-        // Aquí agregar actividades al estudiante como ejemplo
-        // estudiante.recibirActividad(new Activity("Actividad 1", ...));
+        estudiante estudiante = new estudiante("Carlos García", "carlos@ejemplo.com", "abcd");
+
+        // Crear algunas actividades
+
         HacerActividad hacerActividad = new HacerActividad(estudiante);
         hacerActividad.mostrarVentana();
     }

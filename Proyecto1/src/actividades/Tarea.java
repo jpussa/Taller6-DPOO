@@ -13,7 +13,12 @@ public class Tarea extends Activity {
         this.estado = "pendiente";
     }
 
-    @Override
+    public Tarea(String string, String string2, boolean b, String string3, String string4, int i, String nombre,
+			String string5) {
+		// TODO Auto-generated constructor stub
+	}
+
+	@Override
     public boolean completar() {
         this.estado = "completada";
         return true;
